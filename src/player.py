@@ -32,7 +32,7 @@ class Item:
 class Player:
     def __init__(self, name, attributes, x=0, y=0, z=1):
         self.name = name
-        self.location = [x, y, z]
+        self.cords = [x, y, z]
         self.equipped = {
             'head': None,
             'torso': None,
@@ -74,8 +74,8 @@ class Player:
 
     def get_name(self):
         return self.name
-    def get_location(self):
-        return self.location
+    def get_cords(self):
+        return self.cords
     def get_items(self):
         self.items
         return self.items
@@ -92,18 +92,18 @@ class Player:
     def walk(self, direction):
         direction = direction.lower()
         if direction == 'north' or direction == 'n':
-            self.location[1] += 1
+            self.cords[1] += 1
         elif direction == 'east' or direction == 'e':
-            self.location[0] += 1
+            self.cords[0] += 1
         elif direction == 'south' or direction == 's':
-            self.location[1] -= 1
+            self.cords[1] -= 1
         elif direction == 'west' or direction == 'w':
-            self.location[0] -= 1
+            self.cords[0] -= 1
         elif direction == 'up' or direction == 'u':
-            self.location[2] += 1
+            self.cords[2] += 1
         elif direction == 'down' or direction == 'd':
-            self.location[2] -= 1
-        return self.location
+            self.cords[2] -= 1
+        return self.cords
 
     def take_damage(self, amt):
         self.attributes['hitpoints'] = max(0, self.attributes['hitpoints'] - amt)
@@ -111,7 +111,7 @@ class Player:
     def attack(self, victim):
         #check if victim is alive
         if victim.get_attr('hitpoints') == 0:
-            print(f"You poke {victim.get_name()} with a stick. Yup, it's dead.")
+            print(f"You poke {victim.get_name()}. Yup, it's dead.")
         else:
             weapon = self.equipped['left_hand']
             #figure out max damage
